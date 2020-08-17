@@ -25,6 +25,11 @@ public class HelloWorld extends Application {
 
         Button button = new Button("Press Me");
         button.setOnAction(e -> {
+            try {
+                Thread.sleep(6_000); // Simulates massive computation!
+            } catch (InterruptedException interruptedException) {
+                interruptedException.printStackTrace();
+            }
             System.out.println("in event handler " + Thread.currentThread().getName());
             text.setText("Hello JavaFX World " + ++count[0]);
         });
