@@ -37,7 +37,9 @@ public class HelloWorld extends Application {
                     System.out.println("in event handler " + Thread.currentThread().getName());
                     text.setText("Hello JavaFX World " + ++count[0]);
                 };
-                Platform.runLater(r);
+                Platform.runLater(r); // Good :)
+//              r.run(); // VERY VERY BAD!!!
+                System.out.println("Request to update UI submitted...");
             }).start();
         });
 
