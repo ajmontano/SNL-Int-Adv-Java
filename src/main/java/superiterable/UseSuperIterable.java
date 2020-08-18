@@ -12,14 +12,23 @@ public class UseSuperIterable {
                 new Student("Sheila", 3.9, "Math", "Physics", "Astrophysics", "Quantum mechanics")
         ));
 
-        var smart = roster
+//        var smart = roster
+//                .filter(s -> s.getGpa() > 3)
+//                .map(s -> "The student called " + s.getName() + " takes "
+//                        + s.getCourses().size() + " courses");
+//        for (String s : smart) {
+//            System.out.println("> " + s);
+//        }
+
+        roster
                 .filter(s -> s.getGpa() > 3)
                 .map(s -> "The student called " + s.getName() + " takes "
-                        + s.getCourses().size() + " courses");
-        for (String s : smart) {
-            System.out.println("> " + s);
-        }
+                        + s.getCourses().size() + " courses")
+                .forEach(s -> System.out.println(s));
 
-//        smart.map(s -> s)
+        System.out.println("--------------------------");
+        roster
+                .flatMap(s -> new SuperIterable<>(s.getCourses()))
+                .forEach(s -> System.out.println(s));
     }
 }
