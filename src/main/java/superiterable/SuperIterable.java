@@ -1,8 +1,6 @@
 package superiterable;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -46,6 +44,7 @@ public class SuperIterable<E> implements Iterable<E> {
         return new SuperIterable<>(out);
     }
 
+    // Monad
     public <F> SuperIterable<F> flatMap(Function<E, SuperIterable<F>> op) {
         List<F> out = new ArrayList<>();
 //        for (E s : self) {
@@ -62,6 +61,16 @@ public class SuperIterable<E> implements Iterable<E> {
 //        for (E e : self) op.accept(e);
 //    }
 
+    public SuperIterable<E> distinct() {
+        List<E> selected = new ArrayList<>();
+        Set<E> seen = new HashSet<>();
+        for (E s : self) {
+            if (seen.add(s)) {
+                selected.add(s);
+            }
+        }
+        return new SuperIterable<>(selected);
+    }
     @Override
     public Iterator<E> iterator() {
         return self.iterator();

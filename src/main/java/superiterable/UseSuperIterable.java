@@ -3,8 +3,13 @@ package superiterable;
 import students.Student;
 
 import java.util.List;
+import java.util.function.Function;
 
 public class UseSuperIterable {
+    public static String formatMyStudent(Student s) {
+        return s.getName() + " has grade " + s.getGpa();
+    }
+
     public static void main(String[] args) {
         SuperIterable<Student> roster = new SuperIterable<>(List.of(
                 new Student("Fred", 3.3, "Math", "Physics"),
@@ -30,5 +35,43 @@ public class UseSuperIterable {
         roster
                 .flatMap(s -> new SuperIterable<>(s.getCourses()))
                 .forEach(s -> System.out.println(s));
+
+        System.out.println("--------------------------");
+        roster
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        roster
+                .filter(s -> s.getGpa() > 3)
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        roster
+                .filter(s -> s.getGpa() > 3)
+//                .map(s -> s.getName() + " has grade " + s.getGpa())
+//                .map(UseSuperIterable::formatMyStudent)
+                .map(s -> UseSuperIterable.formatMyStudent(s))
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        roster
+                .flatMap(s -> new SuperIterable<>(s.getCourses()))
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        roster
+                .flatMap(s ->
+                        new SuperIterable<>(s.getCourses()).map(c -> s.getName() + " takes " + c))
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        roster
+                .flatMap(s -> new SuperIterable<>(s.getCourses()))
+                .distinct()
+                .forEach(System.out::println);
+//                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        Function<Student, String> formatIt = s -> s.getName();
+        roster
+                .filter(s -> s.getGpa() > 3)
+                .map(formatIt)
+//                .map(Student::getName)
+                .forEach(s -> System.out.println(s));
+
     }
 }
