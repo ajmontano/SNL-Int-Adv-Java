@@ -91,5 +91,43 @@ public class UseSuperIterable {
                 .map(s -> s.getName() + " has grade " + s.getGpa())
                 .forEach(s -> System.out.println(s));
 
+
+        System.out.println("**************** Stream Exercise variant **********************");
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .filter(s -> s.getGpa() > 3)
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .filter(s -> s.getGpa() > 3)
+//                .map(s -> s.getName() + " has grade " + s.getGpa())
+//                .map(UseSuperIterable::formatMyStudent)
+                .map(s -> UseSuperIterable.formatMyStudent(s))
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .flatMap(s -> s.getCourses().stream())
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .flatMap(s ->
+                        s.getCourses().stream().map(c -> s.getName() + " takes " + c))
+                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .flatMap(s -> s.getCourses().stream())
+                .distinct()
+                .sorted()
+                .forEach(System.out::println);
+//                .forEach(s -> System.out.println(s));
+        System.out.println("--------------------------");
+        listRoster.stream()
+                .filter(s -> s.getGpa() > 3)
+                .map(Student::getName)
+                .forEach(s -> System.out.println(s));
+
     }
 }
