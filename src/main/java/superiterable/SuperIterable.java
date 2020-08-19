@@ -57,6 +57,11 @@ public class SuperIterable<E> implements Iterable<E> {
         return new SuperIterable<>(out);
     }
 
+    public SuperIterable<E> peek(Consumer<E> op) {
+        self.forEach(op);
+        return this;
+    }
+
 //    public void forEvery(Consumer<E> op) {
 //        for (E e : self) op.accept(e);
 //    }

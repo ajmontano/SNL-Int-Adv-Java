@@ -11,11 +11,13 @@ public class UseSuperIterable {
     }
 
     public static void main(String[] args) {
-        SuperIterable<Student> roster = new SuperIterable<>(List.of(
+        List<Student> listRoster = List.of(
                 new Student("Fred", 3.3, "Math", "Physics"),
                 new Student("Jim", 2.3, "Art"),
                 new Student("Sheila", 3.9, "Math", "Physics", "Astrophysics", "Quantum mechanics")
-        ));
+        );
+
+        SuperIterable<Student> roster = new SuperIterable<>(listRoster);
 
 //        var smart = roster
 //                .filter(s -> s.getGpa() > 3)
@@ -71,6 +73,22 @@ public class UseSuperIterable {
                 .filter(s -> s.getGpa() > 3)
                 .map(formatIt)
 //                .map(Student::getName)
+                .forEach(s -> System.out.println(s));
+
+        System.out.println("SuperIterable--------------------------");
+        roster
+                .peek(System.out::println)
+                .filter(s -> s.getGpa() > 3)
+                .peek(s -> System.out.println("> " + s))
+                .map(s -> s.getName() + " has grade " + s.getGpa())
+                .forEach(s -> System.out.println(s));
+
+        System.out.println("Stream--------------------------");
+        listRoster.stream()
+                .peek(System.out::println)
+                .filter(s -> s.getGpa() > 3)
+                .peek(s -> System.out.println("> " + s))
+                .map(s -> s.getName() + " has grade " + s.getGpa())
                 .forEach(s -> System.out.println(s));
 
     }
