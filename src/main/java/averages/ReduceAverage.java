@@ -47,9 +47,11 @@ public class ReduceAverage {
 //        var average = Stream.generate(() -> Math.random() * 2 - 1)
 //        var average = Stream.generate(() -> ThreadLocalRandom.current().nextDouble(-Math.PI, +Math.PI))
         var average = ThreadLocalRandom.current().doubles(1_000_000_000, -Math.PI, +Math.PI)
+//        var average = Stream.iterate(0.0, x -> ThreadLocalRandom.current().nextDouble(-Math.PI, +Math.PI))
                 .parallel()
                 .mapToObj(d -> d)
-//                .limit(1_000_000_000)
+//                .unordered()
+                .limit(1_000_000_000)
                 .reduce(ImmutableAverage.of(0, 0),
 //                        (a, d) -> a.include(d),
 //                        accumulate,
