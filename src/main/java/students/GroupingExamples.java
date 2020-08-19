@@ -25,12 +25,20 @@ public class GroupingExamples {
         );
 
 
-        var map = roster.stream()
+        var map1 = roster.stream()
+                .collect(Collectors.groupingBy(GroupingExamples::getLetterGrade,
+                        Collectors.counting()));
+
+        map1.entrySet().stream()
+                .forEach(System.out::println);
+
+        System.out.println("---------------");
+        var map2 = roster.stream()
                 .collect(Collectors.groupingBy(GroupingExamples::getLetterGrade,
                         Collectors.mapping(s -> s.getName() + ":" + s.getGpa(),
                                 Collectors.joining(", "))));
 
-        map.entrySet().stream()
+        map2.entrySet().stream()
                 .forEach(System.out::println);
 
     }
