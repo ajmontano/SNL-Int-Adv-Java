@@ -1,8 +1,9 @@
 package runnables;
 
 public class Stopper {
+    static volatile boolean [] stop = { false };
+
     public static void main(String[] args) throws InterruptedException {
-        final boolean [] stop = { false };
         new Thread(() -> {
             System.out.println("Worker thread starting...");
             while (! stop[0])
